@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Placement Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <h2>Apex University</h2>
+                <span>Training & Placement Cell</span>
+            </div>
+            <nav>
+                <a href="#drives">Active Drives</a>
+                <a href="#guidelines">Eligibility</a>
+                <a href="#apply">Apply Online</a>
+                <a href="#coordinators">Coordinators</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="alert-bar">
+        <strong>Notice:</strong> Registrations for Google & TCS Campus Drives 2026 close this Friday at 5:00 PM.
+    </div>
+
+    <div class="main-wrapper">
+
+        <section id="drives" class="panel">
+            <h3>Upcoming Placement Drives</h3>
+            <table class="drive-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Eligible Branches</th>
+                        <th>Min. CGPA</th>
+                        <th>Drive Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Google</strong></td>
+                        <td>CSE, IT</td>
+                        <td>8.5</td>
+                        <td>Sept 15, 2026</td>
+                        <td><span class="tag open">Open</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tata Consultancy Services (TCS)</strong></td>
+                        <td>All Engineering Branches</td>
+                        <td>6.5</td>
+                        <td>Sept 22, 2026</td>
+                        <td><span class="tag open">Open</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>L&T Technologies</strong></td>
+                        <td>Civil, Mech, Electrical</td>
+                        <td>7.0</td>
+                        <td>Oct 02, 2026</td>
+                        <td><span class="tag upcoming">Upcoming</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="grid-two-column">
+
+            <section id="guidelines" class="panel">
+                <h3>Placement Guidelines</h3>
+                <ul class="guideline-list">
+                    <li>Students must have an overall attendance of at least <strong>75%</strong> to sit for campus drives.</li>
+                    <li>A maximum of <strong>1 active backlog</strong> is permitted at the time of registration.</li>
+                    <li>Formal dress code is mandatory for all written tests and personal interview rounds.</li>
+                    <li>Once an offer letter is accepted, the student is marked placed and cannot sit for lower-tier packages.</li>
+                </ul>
+            </section>
+
+            <section id="apply" class="panel">
+                <h3>Drive Registration Form</h3>
+                <form>
+                    <div class="form-row">
+                        <label for="name">Student Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Full name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="prn">Registration / Roll No:</label>
+                        <input type="text" id="prn" name="prn" placeholder="e.g. 2023-CS-041" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="year">Passing Year:</label>
+                        <select id="year" name="year" required>
+                            <option value="">-- Select Year --</option>
+                            <option value="2026">2026 (Final Year)</option>
+                            <option value="2027">2027 (Pre-Final Year)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="backlogs">Active Backlogs:</label>
+                        <input type="number" id="backlogs" name="backlogs" min="0" max=5 value="0" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="resume">Attach Resume (PDF):</label>
+                        <input type="file" id="resume" name="resume" accept=".pdf" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Details</button>
+                </form>
+            </section>
+
+        </div>
+
+        <section id="coordinators" class="panel">
+            <h3>Faculty & Student Coordinators</h3>
+            <div class="coordinator-cards">
+                <div class="contact-box">
+                    <strong>Dr. V. K. Raman</strong>
+                    <p>Head - Corporate Relations</p>
+                    <p>Email: placementcellgamil.com.edu</p>
+                </div>
+                <div class="contact-box">
+                    <strong>r.d burmon</strong>
+                    <p>Lead Student Coordinator</p>
+                    <p>Phone: +91 91234 56789</p>
+                </div>
+                <div class="contact-box">
+                    <strong>Office Location</strong>
+                    <p>Placement & Training Desk</p>
+                    <p>Administrative Block, 3rd Floor</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Apex University Placement Portal &bull; Updated for Academic Year 2027–2028</p>
+    </footer>
+
+</body>
+</html>
