@@ -1,0 +1,546 @@
+assinment 4
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Care Hospital - Appointment Booking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Hospital Header */
+        header {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            text-align: center;
+            padding: 24px 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+
+        .contact-pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 540px;
+            margin: 30px auto;
+            padding: 0 16px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            color: #0369a1;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #0284c7;
+            outline: none;
+        }
+
+        .time-slots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .time-slots .form-group {
+            flex: 1;
+        }
+
+        button.btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button.btn-submit:hover {
+            background-color: #15803d;
+        }
+
+        /* Booking Items */
+        .booking-item {
+            background: #f8fafc;
+            border-left: 4px solid #0284c7;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .booking-info strong {
+            display: block;
+            font-size: 15px;
+            color: #0f172a;
+        }
+
+        .booking-info span {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-ticket {
+            background: #0284c7;
+            color: white;
+        }
+
+        .btn-ticket:hover {
+            background: #0369a1;
+        }
+
+        .btn-cancel {
+            background: #fee2e2;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
+        }
+
+        .btn-cancel:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+            padding: 16px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            text-align: center;
+            padding: 20px 16px;
+            margin-top: auto;
+        }
+
+        footer h3 {
+            font-size: 16px;
+            color: #38bdf8;
+            margin-bottom: 4px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* Ticket Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 1000;
+        }
+
+        /* Ticket Design */
+        .ticket {
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 2px dashed #0284c7;
+        }
+
+        .ticket-header {
+            background: #0284c7;
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .ticket-header h2 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .ticket-header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .ticket-body {
+            padding: 20px;
+        }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .ticket-row span.label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .ticket-row span.value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .ticket-footer {
+            background: #f8fafc;
+            padding: 12px 20px;
+            font-size: 12px;
+            color: #475569;
+            border-top: 1px dashed #cbd5e1;
+            text-align: center;
+        }
+
+        .modal-controls {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            background: #ffffff;
+        }
+
+        .btn-print {
+            flex: 2;
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-print:hover {
+            background: #15803d;
+        }
+
+        .btn-close {
+            flex: 1;
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-close:hover {
+            background: #cbd5e1;
+        }
+
+        /* Print Media Styles: Isolated ticket for printing / PDF export */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .modal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: none;
+                display: block !important;
+                padding: 0;
+            }
+            .ticket, .ticket * {
+                visibility: visible;
+            }
+            .ticket {
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 480px;
+                box-shadow: none;
+                border: 2px solid #000;
+            }
+            .modal-controls {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hospital Header -->
+    <header>
+        <h1>City Care General Hospital</h1>
+        <div class="contact-pill">📞 Hospital Desk: <strong>+1 (800) 555-0199</strong></div>
+    </header>
+
+    <div class="container">
+        <!-- Form Section -->
+        <div class="card">
+            <h2>Book an Appointment</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="patientName">Patient Name</label>
+                    <input type="text" id="patientName" placeholder="Enter patient full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookingDate">Date</label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+
+                <!-- Slot Timings -->
+                <div class="time-slots">
+                    <div class="form-group">
+                        <label for="startTime">Slot Start</label>
+                        <input type="time" id="startTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime">Slot End</label>
+                        <input type="time" id="endTime" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Confirm Booking</button>
+            </form>
+        </div>
+
+        <!-- Booked Appointments Section -->
+        <div class="card">
+            <h2>Current Bookings</h2>
+            <div id="bookingList">
+                <p class="empty-state">No appointments booked yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Footer -->
+    <footer>
+        <h3>Dr. Sarah Smith, MD (Chief Consultant)</h3>
+        <p>Direct Doctor Helpline: +1 (800) 555-0122</p>
+    </footer>
+
+    <!-- Printable Ticket Modal -->
+    <div class="modal-overlay" id="ticketModal">
+        <div class="ticket" id="printableTicket">
+            <div class="ticket-header">
+                <h2>City Care General Hospital</h2>
+                <p>Appointment Confirmation Pass</p>
+            </div>
+            
+            <div class="ticket-body">
+                <div class="ticket-row">
+                    <span class="label">Token / Pass ID:</span>
+                    <span class="value" id="t-id">#00000</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Patient Name:</span>
+                    <span class="value" id="t-name">-</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Date:</span>
+                    <span class="value" id="t-date">-</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Time Slot:</span>
+                    <span class="value" id="t-time">-</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Doctor Assigned:</span>
+                    <span class="value">Dr. Sarah Smith, MD</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Doctor Helpline:</span>
+                    <span class="value">+1 (800) 555-0122</span>
+                </div>
+            </div>
+
+            <div class="ticket-footer">
+                Please report 10 minutes prior to your slot.<br>
+                For inquiries call Hospital: +1 (800) 555-0199
+            </div>
+
+            <div class="modal-controls">
+                <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+                <button class="btn-close" onclick="closeTicket()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('bookingForm');
+        const bookingList = document.getElementById('bookingList');
+        const modal = document.getElementById('ticketModal');
+
+        let appointments = JSON.parse(localStorage.getItem('hospital_bookings')) || [];
+        renderBookings();
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const patientName = document.getElementById('patientName').value.trim();
+            const date = document.getElementById('bookingDate').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+
+            if (startTime >= endTime) {
+                alert('Slot End Time must be later than Start Time.');
+                return;
+            }
+
+            const appointment = {
+                id: Date.now(),
+                patientName,
+                date,
+                startTime,
+                endTime
+            };
+
+            appointments.push(appointment);
+            saveAndRender();
+            form.reset();
+
+            // Automatically open ticket modal upon booking
+            openTicket(appointment.id);
+        });
+
+        function cancelBooking(id) {
+            appointments = appointments.filter(item => item.id !== id);
+            saveAndRender();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('hospital_bookings', JSON.stringify(appointments));
+            renderBookings();
+        }
+
+        function renderBookings() {
+            if (appointments.length === 0) {
+                bookingList.innerHTML = '<p class="empty-state">No appointments booked yet.</p>';
+                return;
+            }
+
+            bookingList.innerHTML = appointments.map(item => `
+                <div class="booking-item">
+                    <div class="booking-info">
+                        <strong>${item.patientName}</strong>
+                        <span>📅 ${item.date} | ⏰ ${item.startTime} - ${item.endTime}</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-action btn-ticket" onclick="openTicket(${item.id})">Ticket</button>
+                        <button class="btn-action btn-cancel" onclick="cancelBooking(${item.id})">Cancel</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openTicket(id) {
+            const item = appointments.find(b => b.id === id);
+            if (!item) return;
+
+            document.getElementById('t-id').innerText = '#' + String(item.id).slice(-6);
+            document.getElementById('t-name').innerText = item.patientName;
+            document.getElementById('t-date').innerText = item.date;
+            document.getElementById('t-time').innerText = `${item.startTime} - ${item.endTime}`;
+
+            modal.style.display = 'flex';
+        }
+
+        function closeTicket() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside of the ticket container
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeTicket();
+            }
+        });
+    </script>
+</body>
+</html>
